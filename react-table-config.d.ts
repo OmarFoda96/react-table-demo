@@ -127,5 +127,10 @@ import {
         UseRowStateRowProps<D> {
       allCells: Cell<D>[];
     }
+    export interface TableOptions<D extends object = {}>
+    extends UseGlobalFiltersOptions<D> {}
+
+  export interface TableInstance<D extends object = {}>
+    extends UseGlobalFiltersInstanceProps<D> {}
   }
   

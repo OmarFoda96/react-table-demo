@@ -1,11 +1,11 @@
+import { FiltersInput } from "./Filters/Filters";
 import { format } from "date-fns";
-
-
 
 export interface ColumnModel {
   accessor: string;
-  Header:string;
-  Footer:string;
+  Header: string;
+  Filter: any;
+  Footer: string;
 }
 
 const Columns = [
@@ -33,7 +33,9 @@ const Columns = [
     Header: "Birthday",
     Footer: "Birthday",
     accessor: "date_of_birth",
-    Cell: ({value}:any)=>{return format(new Date(value),'dd/MM/yyyy')}
+    Cell: ({ value }: any) => {
+      return format(new Date(value), "dd/MM/yyyy");
+    },
   },
   {
     Header: "Age",
@@ -51,6 +53,5 @@ const Columns = [
     accessor: "phone",
   },
 ];
-
 
 export default Columns;
