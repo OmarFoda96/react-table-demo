@@ -1,24 +1,35 @@
 import React, { useMemo } from "react";
 
-import { useTable } from "react-table";
+import { useSortBy, useTable } from "react-table";
 import Columns from "./columns";
 import MOCK_DATA from "./MOCK_DATA.json";
 import "./basicTable.css";
 
-const BasicTable: React.FC = () => {
+const SortingTable: React.FC = () => {
   const columns = useMemo(() => Columns, []);
   const data = useMemo(() => MOCK_DATA, []);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,footerGroups } =
-    useTable<any>({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, footerGroups } =
+    useTable<any>({ columns, data }, useSortBy);
   return (
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup: any) => {
-         return <tr  {...headerGroup.getHeaderGroupProps()}>
+          return <tr  {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column: any) => {
               return (
-                <th key={column.id} {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th key={column.id} {...column.getHeaderProps(
+                  column.getSortByToggleProps()
+                )}>{column.render("Header")}
+                  <span style={{
+                    float: 'right'
+                  }} >
+
+                    {column.isSorted ? column.isSortedDesc ? 'z' : 'a' : ''}
+
+                  </span>
+                </th>
+
               );
             })}
           </tr>;
@@ -38,7 +49,7 @@ const BasicTable: React.FC = () => {
       </tbody>
       <tfoot>
         {footerGroups.map((footerGroup: any) => {
-         return <tr  {...footerGroup.getFooterGroupProps()}>
+          return <tr  {...footerGroup.getFooterGroupProps()}>
             {footerGroup.headers.map((column: any) => {
               return (
                 <th key={column.id} {...column.getFooterProps}>{column.render("Footer")}</th>
@@ -51,4 +62,4 @@ const BasicTable: React.FC = () => {
   );
 };
 
-export default BasicTable;
+export default SortingTable;

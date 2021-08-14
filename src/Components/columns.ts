@@ -1,3 +1,7 @@
+import { format } from "date-fns";
+
+
+
 export interface ColumnModel {
   accessor: string;
   Header:string;
@@ -29,6 +33,7 @@ const Columns = [
     Header: "Birthday",
     Footer: "Birthday",
     accessor: "date_of_birth",
+    Cell: ({value}:any)=>{return format(new Date(value),'dd/MM/yyyy')}
   },
   {
     Header: "Age",
@@ -46,4 +51,6 @@ const Columns = [
     accessor: "phone",
   },
 ];
+
+
 export default Columns;
